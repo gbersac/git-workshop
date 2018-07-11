@@ -30,6 +30,8 @@ object TodoList {
           { presentation }
         </div>
 
+        <div>{ arrow }</div>
+
         <ul class={ Style.todos.htmlClass }>
           { items.map(_.zipWithIndex.map {
             case (todo, index) => todoItem(todo, index)
@@ -55,6 +57,8 @@ object TodoList {
           }
         }
       />
+
+    lazy val arrow = todos.map(lst => ("=" * lst.size) + ">")
 
     lazy val presentation =
       items.map {
