@@ -58,7 +58,16 @@ object TodoList {
         }
       />
 
-    lazy val arrow = todos.map(lst => ("=" * lst.size) + ">")
+    lazy val arrow =
+      <div>
+        {
+          todos.map(_.map { item: Todo =>
+            val color = if (item.isCompleted) "green" else "silver"
+            <span style={s"color:$color"}>=</span>
+          })
+        }
+        <span>{ ">" }</span>
+      </div>
 
     lazy val presentation =
       items.map {
@@ -90,6 +99,7 @@ object TodoList {
           Style.completedTodo.htmlClass -> todo.isFinished
         ) }
       >
+
         <span
           onclick={ () => items.update { xs =>
             xs.updated(index, todo.copy(isFinished = !todo.isFinished))
