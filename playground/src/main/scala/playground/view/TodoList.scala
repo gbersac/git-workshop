@@ -61,8 +61,8 @@ object TodoList {
     lazy val arrow =
       <div>
         {
-          todos.map(_.map { item: Todo =>
-            val color = if (item.isCompleted) "green" else "silver"
+          items.map(_.map { item: Todo =>
+            val color = if (item.isFinished) "green" else "silver"
             <span style={s"color:$color"}>=</span>
           })
         }
