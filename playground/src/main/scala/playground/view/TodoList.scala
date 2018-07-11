@@ -30,6 +30,8 @@ object TodoList {
           { presentation }
         </div>
 
+        <div>{ arrow }</div>
+
         <ul class={ Style.todos.htmlClass }>
           { items.map(_.zipWithIndex.map {
             case (todo, index) => todoItem(todo, index)
@@ -55,6 +57,17 @@ object TodoList {
           }
         }
       />
+
+    lazy val arrow =
+      <div>
+        {
+          items.map(_.map { item: Todo =>
+            val color = if (item.isFinished) "green" else "silver"
+            <span style={s"color:$color"}>=</span>
+          })
+        }
+        <span>{ ">" }</span>
+      </div>
 
     lazy val presentation =
       items.map {
@@ -86,6 +99,7 @@ object TodoList {
           Style.completedTodo.htmlClass -> todo.isFinished
         ) }
       >
+
         <span
           onclick={ () => items.update { xs =>
             xs.updated(index, todo.copy(isFinished = !todo.isFinished))
